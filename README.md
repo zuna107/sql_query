@@ -1,6 +1,6 @@
 # Daftar Perintah SQL Lengkap
 
-Berikut adalah daftar perintah SQL yang sering digunakan beserta fungsinya. Daftar ini bisa di-copy ke bagian README.md untuk referensi perintah SQL dasar hingga lanjutan.
+Berikut adalah daftar perintah SQL yang sering digunakan beserta fungsinya.
 
 ---
 
