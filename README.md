@@ -292,4 +292,4 @@ END;
 
 ---
 
-Semoga daftar di atas membantu untuk referensi dasar maupun lanjutan dalam penggunaan SQL!
+
