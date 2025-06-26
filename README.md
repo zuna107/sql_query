@@ -154,6 +154,20 @@ Berikut adalah daftar perintah SQL yang sering digunakan beserta fungsinya.
   SELECT * FROM tabel1 FULL JOIN tabel2 ON tabel1.id = tabel2.fk_id;
   ```
 
+- **Contoh Query Multi-Table JOIN (Tanpa Explicit JOIN)**
+  ```sql
+  SELECT 
+    mahasiswa.Nim, 
+    mahasiswa.Nama,
+    krs.Idkelas,
+    matakuliah.Matakuliah,
+    krs.Nilai 
+  FROM mahasiswa, krs, matakuliah, kelas
+  WHERE mahasiswa.nim = krs.Nim 
+    AND krs.Idkelas = kelas.Idkelas 
+    AND kelas.Kode = Matakuliah.Kode;
+  ```
+
 ---
 
 ## 7. Subquery
