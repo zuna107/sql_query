@@ -168,6 +168,21 @@ Berikut adalah daftar perintah SQL yang sering digunakan beserta fungsinya.
     AND kelas.Kode = Matakuliah.Kode;
   ```
 
+- **Contoh Query Multi-Table LEFT JOIN**
+  ```sql
+  SELECT 
+    m.Nim, 
+    m.Nama,
+    k.Idkelas,
+    mk.Matakuliah,
+    k.Nilai 
+  FROM
+    mahasiswa m 
+    LEFT JOIN krs k ON m.Nim = k.Nim
+    LEFT JOIN kelas kl ON k.Idkelas = kl.Idkelas
+    LEFT JOIN matakuliah mk ON kl.Kode = mk.Kode;
+  ```
+
 ---
 
 ## 7. Subquery
