@@ -321,4 +321,75 @@ END;
 
 ---
 
+## 16. Contoh Query Lanjutan
 
+### a. Menghitung IPK Mahasiswa
+
+```sql
+SELECT 
+  m.Nim,
+  m.Nama,
+  SUM(mk.Sks * k.Nilai) / SUM(mk.Sks) AS IPK
+FROM
+  mahasiswa m, krs k, kelas kl, matakuliah mk
+WHERE
+  m.Nim = k.Nim AND 
+  k.Idkelas = kl.Idkelas AND
+  kl.Kode = mk.Kode
+GROUP BY m.Nim
+ORDER BY IPK;
+```
+
+### b. Menampilkan Nilai Huruf Mahasiswa
+
+```sql
+SELECT
+  m.Nim,
+  m.Nama,
+  d.Nama AS Dosen,
+  k.Nilai,
+  mk.Matakuliah,
+  CASE (k.Nilai)
+    WHEN 4 THEN 'A'
+    WHEN 3 THEN 'B'
+    WHEN 2 THEN 'C'
+    WHEN 1 THEN 'D'
+    ELSE 'E'
+  END AS nilai_huruf
+FROM mahasiswa m, krs k, kelas kl, dosen d, matakuliah mk
+WHERE
+  m.Nim = k.Nim AND
+  k.Idkelas = kl.Idkelas AND
+  kl.Kode = mk.Kode AND
+  kl.Nip = d.Nip;
+```
+
+### c. Menampilkan Nilai Huruf, IPK, dan Keterangan Kelulusan
+
+```sql
+SELECT
+  m.Nim,
+  m.Nama,
+  k.Nilai,
+  CASE (k.Nilai)
+    WHEN 4 THEN 'A'
+    WHEN 3 THEN 'B'
+    WHEN 2 THEN 'C'
+    WHEN 1 THEN 'D'
+    ELSE 'E'
+  END AS nilai_huruf,
+  ROUND(SUM(mk.Sks * k.Nilai) / SUM(mk.Sks), 2) AS IPK,
+  CASE 
+    WHEN SUM(mk.Sks * k.Nilai) / SUM(mk.Sks) >= 3.51 THEN 'Cumlaude'
+    WHEN SUM(mk.Sks * k.Nilai) / SUM(mk.Sks) >= 3.1 THEN 'Sangat Memuaskan'
+    WHEN SUM(mk.Sks * k.Nilai) / SUM(mk.Sks) >= 2.51 THEN 'Memuaskan'
+    WHEN SUM(mk.Sks * k.Nilai) / SUM(mk.Sks) >= 2.0 THEN 'Cukup'
+    ELSE 'Kurang'
+  END AS Keterangan
+FROM mahasiswa m
+JOIN krs k ON m.Nim = k.Nim
+JOIN kelas kl ON k.Idkelas = kl.Idkelas
+JOIN matakuliah mk ON kl.Kode = mk.Kode
+GROUP BY m.Nim, m.Nama
+ORDER BY IPK DESC;
+```
